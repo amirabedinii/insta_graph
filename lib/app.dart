@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:insta_graph/consts/sizes.dart';
+import 'package:insta_graph/helpers/screen_size_helper.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    ScreenSize.setDeviceSize(context);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -56,6 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        elevation: distance20,
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
