@@ -29,6 +29,7 @@ class _LogInScreenState extends State<LogInScreen> {
       ThemeMode.dark => Colors.white
     };
     return Scaffold(
+    resizeToAvoidBottomInset:false ,
       body: Center(
         child: Column(
           children: [
