@@ -4,18 +4,20 @@ class AuthenticationTextField extends StatelessWidget {
   final double width;
   final double height;
   final TextEditingController? controller;
-  final bool? isPassword;
+  final bool isPassword;
   final String? hint;
   final TextInputType? textInputType;
+  final Color? fillColor;
 
   const AuthenticationTextField({
     super.key,
     required this.width,
     required this.height,
     this.controller,
-    this.isPassword,
+    this.isPassword= false ,
     this.hint,
     this.textInputType,
+    this.fillColor,
   });
 
   @override
@@ -29,10 +31,10 @@ class AuthenticationTextField extends StatelessWidget {
       height: height,
       child: TextField(
         controller: controller,
-        obscureText: isPassword ?? false,
+        obscureText: isPassword ,
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
-          fillColor: Color.fromARGB(255, 68, 68, 68),
+          fillColor:fillColor ??const Color.fromARGB(255, 68, 68, 68),
           filled: true,
           hintText: hint,
           border: inputBorder,
