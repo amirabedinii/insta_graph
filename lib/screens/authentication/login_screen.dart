@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:insta_graph/consts/sizes.dart';
-import 'package:insta_graph/cubits/app/app_cubit.dart';
+import 'package:insta_graph/helpers/color_extention.dart';
 import 'package:insta_graph/helpers/size_extentions.dart';
 import 'package:insta_graph/widgets/buttons/authentication_button.dart';
 
@@ -18,23 +17,13 @@ class LogInScreen extends StatefulWidget {
 class _LogInScreenState extends State<LogInScreen> {
   @override
   Widget build(BuildContext context) {
-    final materialColors =
-        switch (context.watch<AppCubit>().themeNotifier.value) {
-      ThemeMode.system =>
-        WidgetsBinding.instance.platformDispatcher.platformBrightness ==
-                Brightness.dark
-            ? Colors.white
-            : Colors.black,
-      ThemeMode.light => Colors.black,
-      ThemeMode.dark => Colors.white
-    };
     return Scaffold(
-    resizeToAvoidBottomInset:false ,
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
           children: [
             Padding(
-              padding:  EdgeInsets.all(20.0.w),
+              padding: EdgeInsets.all(20.0.w),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,7 +37,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     child: SvgPicture.asset(
                       'assets/images/instagram_logo.svg',
                       colorFilter: ColorFilter.mode(
-                        materialColors,
+                        ThemeData().colors(context).materialColor,
                         BlendMode.srcIn,
                       ),
                     ),
@@ -60,6 +49,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     width: 400.0.w,
                     height: 40.0.h,
                     hint: 'Phone number, email or username',
+                    fillColor: ThemeData().colors(context).textFieldColor,
                   ),
                   SizedBox(
                     height: 12.0.h,
@@ -68,6 +58,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     width: 400.0.w,
                     height: 40.0.h,
                     hint: 'Password',
+                    fillColor: ThemeData().colors(context).textFieldColor,
                   ),
                   SizedBox(
                     height: 12.0.h,
@@ -93,7 +84,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        color: materialColors,
+                        color: ThemeData().colors(context).materialColor,
                         width: 120.0.w,
                         height: 1.0.h,
                       ),
@@ -107,7 +98,7 @@ class _LogInScreenState extends State<LogInScreen> {
                         width: distance10,
                       ),
                       Container(
-                        color: materialColors,
+                        color: ThemeData().colors(context).materialColor,
                         width: 120.0.w,
                         height: 1.0.h,
                       ),
@@ -127,7 +118,7 @@ class _LogInScreenState extends State<LogInScreen> {
               height: 170.0.h,
             ),
             Container(
-              color: materialColors,
+              color: ThemeData().colors(context).materialColor,
               width: 300.0.w,
               height: 0.5.h,
             ),

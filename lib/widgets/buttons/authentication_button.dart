@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:insta_graph/helpers/color_extention.dart';
 
 class AuthenticationButton extends StatelessWidget {
   final String text;
@@ -24,8 +25,8 @@ class AuthenticationButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: isNotEmpty
-              ? const Color.fromARGB(115, 42, 138, 248)
-              : const Color.fromARGB(115, 2, 87, 184),
+              ? ThemeData().colors(context).nonEmptyButtonColor
+              : ThemeData().colors(context).emptyButtonColor,
         ),
         onPressed: () => onPress,
         child: Text(text),

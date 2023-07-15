@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:insta_graph/helpers/color_extention.dart';
 import 'package:insta_graph/helpers/size_extentions.dart';
 import 'package:insta_graph/widgets/buttons/authentication_button.dart';
 
 import '../../consts/sizes.dart';
-import '../../cubits/app/app_cubit.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -17,16 +16,6 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
-    final materialColors =
-        switch (context.watch<AppCubit>().themeNotifier.value) {
-      ThemeMode.system =>
-        WidgetsBinding.instance.platformDispatcher.platformBrightness ==
-                Brightness.dark
-            ? Colors.white
-            : Colors.black,
-      ThemeMode.light => Colors.black,
-      ThemeMode.dark => Colors.white
-    };
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Center(
@@ -47,7 +36,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: SvgPicture.asset(
                       'assets/images/instagram_logo.svg',
                       colorFilter: ColorFilter.mode(
-                        materialColors,
+                        ThemeData().colors(context).materialColor,
                         BlendMode.srcIn,
                       ),
                     ),
@@ -69,7 +58,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        color: materialColors,
+                        color: ThemeData().colors(context).materialColor,
                         width: 120.0.w,
                         height: 1.0.h,
                       ),
@@ -83,7 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         width: distance10,
                       ),
                       Container(
-                        color: materialColors,
+                        color: ThemeData().colors(context).materialColor,
                         width: 120.0.w,
                         height: 1.0.h,
                       ),
@@ -100,7 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               height: 130.0.h,
             ),
             Container(
-              color: materialColors,
+              color: ThemeData().colors(context).materialColor,
               width: 300.0.w,
               height: 0.5.h,
             ),
