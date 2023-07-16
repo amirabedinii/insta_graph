@@ -17,29 +17,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.all(20.0.w),
+              padding: EdgeInsets.only(left: 20.w,right: 20.w,top: 30.w,bottom: 20.w),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 150.0.h,
-                  ),
-                  SizedBox(
                     width: 170.0.w,
-                    height: 150.0.h,
-                    child: SvgPicture.asset(
-                      'assets/images/instagram_logo.svg',
-                      colorFilter: ColorFilter.mode(
-                        ThemeData().colors(context).materialColor,
-                        BlendMode.srcIn,
+                    height: 120.0.h,               
+                    child: Center(
+                      child: SvgPicture.asset(  
+                        'assets/images/instagram_logo.svg',
+                        colorFilter: ColorFilter.mode(
+                          ThemeData().colors(context).materialColor,
+                          BlendMode.srcIn,
+                        ),
                       ),
                     ),
+                  ),
+                  Text(
+                    "Sign up to see photos and videos from your friends.",
+                    style: TextStyle(
+                      color:  ThemeData().colors(context).materialColor,
+                      fontSize: 15.0,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                   SizedBox(
                     height: 20.0.h,
