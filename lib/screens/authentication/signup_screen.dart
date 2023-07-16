@@ -1,8 +1,10 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:insta_graph/helpers/color_extention.dart';
 import 'package:insta_graph/helpers/size_extentions.dart';
 import 'package:insta_graph/widgets/buttons/authentication_button.dart';
+import 'package:insta_graph/widgets/textfields/authentication_textfield.dart';
 
 import '../../consts/sizes.dart';
 
@@ -17,22 +19,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 20.w,right: 20.w,top: 30.w,bottom: 20.w),
+              padding: EdgeInsets.only(
+                left: distance20,
+                right: distance20,
+                top: distance20 * 2,
+                bottom: distance20 * 2,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
                     width: 170.0.w,
-                    height: 120.0.h,               
+                    height: 100.0.h,
                     child: Center(
-                      child: SvgPicture.asset(  
+                      child: SvgPicture.asset(
                         'assets/images/instagram_logo.svg',
                         colorFilter: ColorFilter.mode(
                           ThemeData().colors(context).materialColor,
@@ -44,13 +50,60 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Text(
                     "Sign up to see photos and videos from your friends.",
                     style: TextStyle(
-                      color:  ThemeData().colors(context).materialColor,
+                      color: ThemeData().colors(context).materialColor,
                       fontSize: 15.0,
                     ),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
                     height: 20.0.h,
+                  ),
+                  AuthenticationTextField(
+                    width: 400.0.w,
+                    height: 40.0.h,
+                    hint: 'Phone Number, Email',
+                    fillColor: ThemeData().colors(context).textFieldColor,
+                  ),
+                  SizedBox(
+                    height: 12.0.h,
+                  ),
+                  AuthenticationTextField(
+                    width: 400.0.w,
+                    height: 40.0.h,
+                    hint: 'Full Name ',
+                    fillColor: ThemeData().colors(context).textFieldColor,
+                  ),
+                  SizedBox(
+                    height: 12.0.h,
+                  ),
+                  AuthenticationTextField(
+                    width: 400.0.w,
+                    height: 40.0.h,
+                    hint: 'UserName',
+                    fillColor: ThemeData().colors(context).textFieldColor,
+                  ),
+                  SizedBox(
+                    height: 12.0.h,
+                  ),
+                  AuthenticationTextField(
+                    width: 400.0.w,
+                    height: 40.0.h,
+                    hint: 'Password',
+                    isPassword: true,
+                    fillColor: ThemeData().colors(context).textFieldColor,
+                  ),
+                  SizedBox(
+                    height: 12.0.h,
+                  ),
+                  AuthenticationTextField(
+                    width: 400.0.w,
+                    height: 40.0.h,
+                    hint: 'Confirm Password',
+                    isPassword: true,
+                    fillColor: ThemeData().colors(context).textFieldColor,
+                  ),
+                  SizedBox(
+                    height: 12.0.h,
                   ),
                   AuthenticationButton(
                     width: 400.0.w,
@@ -86,16 +139,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ],
                   ),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text('Sign up with email or phone number'),
+                  SizedBox(
+                    height: distance12,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: "By signing up, you agree to our ",
+                      style: TextStyle(
+                        color: ThemeData().colors(context).materialColor,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: "Terms",
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              //TODO : Terms
+                            },
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              height: 130.0.h,
-            ),
+            const Spacer(),
+            const Spacer(),
             Container(
               color: ThemeData().colors(context).materialColor,
               width: 300.0.w,
@@ -111,6 +183,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ],
             ),
+            const Spacer(),
           ],
         ),
       ),
