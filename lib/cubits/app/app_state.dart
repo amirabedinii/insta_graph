@@ -1,4 +1,4 @@
-import 'package:insta_graph/models/base_state.dart';
+import 'package:insta_graph/models/state/base_state.dart';
 
 class AppState extends BaseState {
   const AppState({super.status});
