@@ -1,10 +1,11 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:insta_graph/consts/consts.dart';
+import 'package:insta_graph/network/remote_data_provider.dart';
+
 
 class HttpHelper {
-  final Dio _dio = Dio(BaseOptions(baseUrl: Consts.baseUrl));
+  final Dio _dio = RemoteDataProvider().dio;
 
   Future<dynamic> _responseData(Response response) async {
     try {

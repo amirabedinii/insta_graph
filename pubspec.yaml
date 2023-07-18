@@ -41,6 +41,7 @@ dependencies:
   flutter_svg: ^2.0.7
   font_awesome_flutter: ^10.5.0
   dio: ^5.2.1+1
+  injectable: ^2.1.2
 
 
 dev_dependencies:
