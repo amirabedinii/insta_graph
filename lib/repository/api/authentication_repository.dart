@@ -12,7 +12,7 @@ abstract class AuthenticationRepository {
     required String firstName,
     required String lastName,
     required String username,
-    required String email,
+    required String emailOrPhone,
     required String password,
   });
 
@@ -25,25 +25,6 @@ abstract class AuthenticationRepository {
 @Singleton(as: AuthenticationRepository)
 class AuthenticationRepositorySingelton implements AuthenticationRepository {
   final HttpHelper _httpHelper = HttpHelper();
-  @override
-  Future<ResponseModel<UserModel>> signUp({
-    required String firstName,
-    required String lastName,
-    required String username,
-    required String email,
-    required String password,
-  }) {
-    return _httpHelper.httpPost('', data: {
-      'first_name': firstName,
-      'last_name': lastName,
-      'username': username,
-      'email': email,
-      'password': password,
-    }).then(
-      (value) =>
-          ResponseModel<UserModel>.fromJson(jsonDecode(jsonEncode(value.data))),
-    );
-  }
 
   @override
   Future<ResponseModel<LoginModel>> logIn({
@@ -56,6 +37,25 @@ class AuthenticationRepositorySingelton implements AuthenticationRepository {
     }).then(
       (value) => ResponseModel<LoginModel>.fromJson(
           jsonDecode(jsonEncode(value.data))),
+    );
+  }
+
+  @override
+  Future<ResponseModel<UserModel>> signUp(
+      {required String firstName,
+      required String lastName,
+      required String username,
+      required String emailOrPhone,
+      required String password}) {
+    return _httpHelper.httpPost('', data: {
+      'first_name': firstName,
+      'last_name': lastName,
+      'username': username,
+      'email': emailOrPhone,
+      'password': password,
+    }).then(
+      (value) =>
+          ResponseModel<UserModel>.fromJson(jsonDecode(jsonEncode(value.data))),
     );
   }
 }
