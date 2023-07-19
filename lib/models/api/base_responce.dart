@@ -27,7 +27,7 @@ class ResponseModel<T extends BaseApiModel> {
     this.dataModel,
   });
 
-  Map<String, dynamic> toJSon() {
+  Map<String, dynamic> toJson() {
     return <String, dynamic>{
       if (message != null) 'message': message,
       if (error != null) 'non_field_errors': error,
