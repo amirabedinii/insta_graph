@@ -67,4 +67,41 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       );
     }
   }
+
+  Future logIn() async {
+    // starting logIn
+    emit(
+      state.copyWith(
+        logInSubmitting: true,
+      ),
+    );
+
+    try {
+      // getting response from server
+      final logInResponse = await authenticationRepository.logIn(
+        username: usernameController.text,
+        password: passwordController.text,
+      );
+      
+      //emiting final data
+      emit(
+        state.copyWith(
+          logInSubmitting: false,
+        ),
+      );
+    } on HttpException catch (e) {
+      emit(
+        state.copyWith(
+          message: e.message,
+          logInSubmitting: false,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          logInSubmitting: false,
+        ),
+      );
+    }
+  }
 }

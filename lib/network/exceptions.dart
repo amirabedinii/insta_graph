@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 
-class HttpException implements Exception {
+class CustomHttpException implements Exception {
   final Object type;
   final String? error;
   final String? message;
 
-  HttpException(this.type, [this.error, this.message]) {
+  CustomHttpException(this.type, [this.error, this.message]) {
     debugPrintStack(label: toString());
   }
 
@@ -15,17 +15,17 @@ class HttpException implements Exception {
   }
 }
 
-class ForbiddenException extends HttpException {
+class ForbiddenException extends CustomHttpException {
   final String url;
 
   ForbiddenException(this.url, [String? error, String? message])
       : super(UnauthorizedException, error, message);
 
   @override
-  String toString() => 'UnauthorisedException in $url';
+  String toString() => 'UnauthorizedException in $url';
 }
 
-class InvalidInputException extends HttpException {
+class InvalidInputException extends CustomHttpException {
   final String url;
 
   InvalidInputException(this.url, [String? error, String? message])
@@ -35,7 +35,7 @@ class InvalidInputException extends HttpException {
   String toString() => 'InvalidInputException in $url';
 }
 
-class SocketException extends HttpException {
+class SocketException extends CustomHttpException {
   final String url;
 
   SocketException(this.url, [String? error, String? message])
@@ -45,7 +45,7 @@ class SocketException extends HttpException {
   String toString() => 'SocketException in $url';
 }
 
-class NotFoundException extends HttpException {
+class NotFoundException extends CustomHttpException {
   final String url;
 
   NotFoundException(this.url, [String? error, String? message])
@@ -55,7 +55,7 @@ class NotFoundException extends HttpException {
   String toString() => 'NotFoundException in $url';
 }
 
-class TooManyRequestException extends HttpException {
+class TooManyRequestException extends CustomHttpException {
   final String url;
 
   TooManyRequestException(this.url, [String? error, String? message])
@@ -65,7 +65,7 @@ class TooManyRequestException extends HttpException {
   String toString() => 'TooManyRequestException in $url';
 }
 
-class ServerException extends HttpException {
+class ServerException extends CustomHttpException {
   final String url;
 
   ServerException(this.url, [String? error, String? message])
@@ -75,7 +75,7 @@ class ServerException extends HttpException {
   String toString() => 'ServerException in $url';
 }
 
-class NotHandleException extends HttpException {
+class NotHandleException extends CustomHttpException {
   final String url;
 
   NotHandleException(this.url, [String? error, String? message])
@@ -85,7 +85,7 @@ class NotHandleException extends HttpException {
   String toString() => 'NotHandleException in $url';
 }
 
-class UnauthorizedException extends HttpException {
+class UnauthorizedException extends CustomHttpException {
   final String url;
 
   UnauthorizedException(this.url, [String? error, String? message])
@@ -95,7 +95,7 @@ class UnauthorizedException extends HttpException {
   String toString() => 'UnauthorisedException in $url';
 }
 
-class BadRequestException extends HttpException {
+class BadRequestException extends CustomHttpException {
   final String url;
   final Map<String, dynamic> json;
 
