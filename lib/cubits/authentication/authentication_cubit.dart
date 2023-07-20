@@ -2,9 +2,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:insta_graph/cubits/authentication/authentication_state.dart';
-import 'package:insta_graph/models/state/base_state.dart';
 import 'package:insta_graph/repository/api/authentication_repository.dart';
-import 'package:insta_graph/services/di_service/di_service.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
   AuthenticationCubit()
@@ -17,8 +15,8 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
           ),
         );
 
-  AuthenticationRepository get authenticationRepository =>
-      DIService().getModel<AuthenticationRepository>();
+  final AuthenticationRepository authenticationRepository =
+      AuthenticationRepository();
 
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
@@ -31,7 +29,6 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     emit(
       state.copyWith(
         signUpSubmitting: true,
-        status: StateStatus.loading,
       ),
     );
 
@@ -53,7 +50,6 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         state.copyWith(
           userModel: userModel,
           signUpSubmitting: false,
-          status: StateStatus.loaded,
         ),
       );
     } on HttpException catch (e) {
@@ -61,14 +57,12 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         state.copyWith(
           message: e.message,
           signUpSubmitting: false,
-          status: StateStatus.error,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           signUpSubmitting: false,
-          status: StateStatus.error,
         ),
       );
     }

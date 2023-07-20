@@ -1,32 +1,13 @@
 import 'dart:convert';
-
-import 'package:injectable/injectable.dart';
 import 'package:insta_graph/models/api/authentication/login_model.dart';
 import 'package:insta_graph/models/api/authentication/user_model.dart';
 import 'package:insta_graph/network/http_helper.dart';
 
 import '../../models/api/base_responce.dart';
 
-abstract class AuthenticationRepository {
-  Future<ResponseModel<UserModel>> signUp({
-    required String firstName,
-    required String lastName,
-    required String username,
-    required String emailOrPhone,
-    required String password,
-  });
-
-  Future<ResponseModel<LoginModel>> logIn({
-    required String username,
-    required String password,
-  });
-}
-
-@Singleton(as: AuthenticationRepository)
-class AuthenticationRepositorySingelton implements AuthenticationRepository {
+class AuthenticationRepository {
   final HttpHelper _httpHelper = HttpHelper();
 
-  @override
   Future<ResponseModel<LoginModel>> logIn({
     required String username,
     required String password,
@@ -40,7 +21,6 @@ class AuthenticationRepositorySingelton implements AuthenticationRepository {
     );
   }
 
-  @override
   Future<ResponseModel<UserModel>> signUp(
       {required String firstName,
       required String lastName,
