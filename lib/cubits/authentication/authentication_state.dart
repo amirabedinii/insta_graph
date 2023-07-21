@@ -8,13 +8,11 @@ class AuthenticationState extends BaseState {
   final bool signUpSubmitting;
   final bool logInSubmitting;
   final bool logOutSubmitting;
-  int step = 0;
 
   AuthenticationState({
     String? message,
     this.userModel,
     this.token,
-    this.step = 0,
     required this.signUpWithFacebook,
     required this.signUpSubmitting,
     required this.logInSubmitting,
@@ -41,7 +39,6 @@ class AuthenticationState extends BaseState {
       signUpSubmitting: signUpSubmitting ?? this.signUpSubmitting,
       logInSubmitting: logInSubmitting ?? this.logInSubmitting,
       logOutSubmitting: logOutSubmitting ?? this.logOutSubmitting,
-      step: step ?? this.step,
     );
   }
 
@@ -76,6 +73,5 @@ class AuthenticationState extends BaseState {
         signUpSubmitting,
         logInSubmitting,
         logOutSubmitting,
-        step,
       ];
 }

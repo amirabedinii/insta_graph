@@ -12,7 +12,6 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
             signUpSubmitting: false,
             logInSubmitting: false,
             logOutSubmitting: false,
-            step:  0
           ),
         );
 
@@ -24,16 +23,6 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   final usernameController = TextEditingController();
   final emailOrPhoneController = TextEditingController();
   final passwordController = TextEditingController();
-  int currentStep = 0;
-
-  void nextStep() {
-    print("${state.step} steps");
-    emit(
-      state.copyWith(
-      step: state.step + 1,
-      ),
-    );
-  }
 
   Future signUp() async {
     // starting signUp

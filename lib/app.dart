@@ -28,9 +28,7 @@ class MyApp extends StatelessWidget {
                     ThemeData().colors(context).backgroundColor),
             initialRoute: 'login',
             routes: {
-              // When navigating to the "/" route, build the FirstScreen widget.
               'login': (context) => const LogInScreen(),
-              // When navigating to the "/second" route, build the SecondScreen widget.
               '/signup': (context) => const SignUpScreen(),
             },
           );
