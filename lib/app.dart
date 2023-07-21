@@ -5,6 +5,7 @@ import 'package:insta_graph/cubits/app/app_state.dart';
 import 'package:insta_graph/helpers/color_extention.dart';
 import 'package:insta_graph/helpers/screen_size_helper.dart';
 import 'package:insta_graph/screens/authentication/login_screen.dart';
+import 'package:insta_graph/screens/authentication/signup_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -25,7 +26,13 @@ class MyApp extends StatelessWidget {
             darkTheme: ThemeData.dark().copyWith(
                 scaffoldBackgroundColor:
                     ThemeData().colors(context).backgroundColor),
-            home: const LogInScreen(),
+            initialRoute: 'login',
+            routes: {
+              // When navigating to the "/" route, build the FirstScreen widget.
+              'login': (context) => const LogInScreen(),
+              // When navigating to the "/second" route, build the SecondScreen widget.
+              '/signup': (context) => const SignUpScreen(),
+            },
           );
         },
       ),

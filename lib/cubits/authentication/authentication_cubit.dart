@@ -7,11 +7,12 @@ import 'package:insta_graph/repository/api/authentication_repository.dart';
 class AuthenticationCubit extends Cubit<AuthenticationState> {
   AuthenticationCubit()
       : super(
-          const AuthenticationState(
+           AuthenticationState(
             signUpWithFacebook: false,
             signUpSubmitting: false,
             logInSubmitting: false,
             logOutSubmitting: false,
+            step:  0
           ),
         );
 
@@ -23,6 +24,16 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   final usernameController = TextEditingController();
   final emailOrPhoneController = TextEditingController();
   final passwordController = TextEditingController();
+  int currentStep = 0;
+
+  void nextStep() {
+    print("${state.step} steps");
+    emit(
+      state.copyWith(
+      step: state.step + 1,
+      ),
+    );
+  }
 
   Future signUp() async {
     // starting signUp
@@ -82,7 +93,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         username: usernameController.text,
         password: passwordController.text,
       );
-      
+
       //emiting final data
       emit(
         state.copyWith(

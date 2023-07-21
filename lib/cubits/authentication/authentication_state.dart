@@ -8,17 +8,19 @@ class AuthenticationState extends BaseState {
   final bool signUpSubmitting;
   final bool logInSubmitting;
   final bool logOutSubmitting;
+  int step = 0;
 
-  const  AuthenticationState({
-    String ? message,
+  AuthenticationState({
+    String? message,
     this.userModel,
     this.token,
+    this.step = 0,
     required this.signUpWithFacebook,
     required this.signUpSubmitting,
     required this.logInSubmitting,
     required this.logOutSubmitting,
   }) : super(
-         message: message ,
+          message: message,
         );
 
   AuthenticationState copyWith({
@@ -29,15 +31,17 @@ class AuthenticationState extends BaseState {
     bool? signUpSubmitting,
     bool? logInSubmitting,
     bool? logOutSubmitting,
+    int? step,
   }) {
     return AuthenticationState(
-      message:  message,
+      message: message,
       userModel: userModel ?? this.userModel,
       token: token ?? this.token,
       signUpWithFacebook: signUpWithFacebook ?? this.signUpWithFacebook,
       signUpSubmitting: signUpSubmitting ?? this.signUpSubmitting,
       logInSubmitting: logInSubmitting ?? this.logInSubmitting,
       logOutSubmitting: logOutSubmitting ?? this.logOutSubmitting,
+      step: step ?? this.step,
     );
   }
 
@@ -72,5 +76,6 @@ class AuthenticationState extends BaseState {
         signUpSubmitting,
         logInSubmitting,
         logOutSubmitting,
+        step,
       ];
 }
