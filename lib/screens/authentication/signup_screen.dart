@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,6 +7,7 @@ import 'package:insta_graph/cubits/authentication/authentication_state.dart';
 import 'package:insta_graph/helpers/color_extention.dart';
 import 'package:insta_graph/helpers/size_extentions.dart';
 import 'package:insta_graph/widgets/buttons/authentication_button.dart';
+import 'package:insta_graph/widgets/textfields/authentication_textfield.dart';
 
 import '../../consts/sizes.dart';
 
