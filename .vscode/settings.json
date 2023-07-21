@@ -1,3 +1,6 @@
 {
-    "cmake.sourceDirectory": "C:/Users/blinklenovo400/Desktop/insta_graph/windows"
+    "cmake.sourceDirectory": "C:/Users/blinklenovo400/Desktop/insta_graph/windows",
+    "dart.useLegacyAnalyzerProtocol": true,
+    "dart.useLsp": false,
+    "dart.autoImportCompletions": false
 }
