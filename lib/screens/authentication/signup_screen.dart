@@ -52,6 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     style: TextStyle(
                       color: ThemeData().colors(context).materialColor,
                       fontSize: 15.0,
+                      
                     ),
                     textAlign: TextAlign.center,
                   ),
