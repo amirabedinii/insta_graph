@@ -11,7 +11,7 @@ class AuthenticationRepository {
     required String username,
     required String password,
   }) {
-    return _httpHelper.httpPost('', data: {
+    return _httpHelper.httpPost('127.0.0.1:8000/accounts/login', data: {
       'username': username,
       'password': password,
     }).then(
@@ -27,7 +27,7 @@ class AuthenticationRepository {
     required String emailOrPhone,
     required String password,
   }) {
-    return _httpHelper.httpPost('', data: {
+    return _httpHelper.httpPost('127.0.0.1:8000/accounts/signup', data: {
       'first_name': firstName,
       'last_name': lastName,
       'username': username,

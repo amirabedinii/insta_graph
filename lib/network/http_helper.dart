@@ -41,13 +41,13 @@ class HttpHelper {
   }
 
   Future<dynamic> httpGet(
-    String method, {
+    String path, {
     Map<String, dynamic>? queryParameters,
   }) async {
     try {
       return _responseData(
         await _dio.get(
-          '/$method',
+          '/$path',
           queryParameters: queryParameters,
         ),
       );
@@ -59,12 +59,12 @@ class HttpHelper {
   }
 
   Future<dynamic> httpPost(
-    String method, {
+    String path, {
     required dynamic data,
   }) async {
     try {
       return _responseData(await _dio.post(
-        '/$method',
+        '/$path',
         data: data,
       ));
     } on DioException catch (e) {
@@ -75,13 +75,13 @@ class HttpHelper {
   }
 
   Future<dynamic> httpPut(
-    String method, {
+    String path, {
     required dynamic data,
   }) async {
     try {
       return _responseData(
         await _dio.put(
-          '/$method',
+          '/$path',
           data: data,
         ),
       );
@@ -93,14 +93,14 @@ class HttpHelper {
   }
 
   Future<dynamic> httpDelete(
-    String method, {
+    String path, {
     required dynamic data,
     Map<String, dynamic>? queryParameters,
   }) async {
     try {
       return _responseData(
         await _dio.delete(
-          '/$method',
+          '/$path',
           data: data,
         ),
       );
@@ -112,13 +112,13 @@ class HttpHelper {
   }
 
   Future<dynamic> httpPatch(
-    String method, {
+    String path, {
     Map<String, dynamic>? queryParameters,
     required dynamic data,
   }) async {
     try {
       return _responseData(await _dio.post(
-        '/$method',
+        '/$path',
         data: data,
         options: Options(),
       ));
