@@ -1,5 +1,5 @@
-import 'package:insta_graph/models/api/authentication/user_model.dart';
 import 'package:insta_graph/models/api/base_api_model.dart';
+import 'authentication/authentication_model.dart';
 
 typedef DataFactory<T extends BaseApiModel> = T Function(
   Map<String, dynamic> json,
@@ -17,41 +17,44 @@ T makeModel<T extends BaseApiModel>(Map<String, dynamic> json) {
 }
 
 class ResponseModel<T extends BaseApiModel> {
+  final DataModel<T>? dataModel;
+  final String? status;
   final String? message;
   final String? error;
-  final DataModel<T>? dataModel;
 
   ResponseModel({
+        this.dataModel,
+    this.status,
     this.message,
     this.error,
-    this.dataModel,
   });
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
+       if (dataModel != null) responseData[T]!: dataModel!.toJson(),
+      if (status != null) 'status': status,
       if (message != null) 'message': message,
-      if (error != null) 'non_field_errors': error,
-      if (dataModel != null) responseData[T]!: dataModel!.toJson()
+      if (error != null) 'detail': error,
     };
   }
 
   factory ResponseModel.fromJson(Map<String, dynamic> map) {
     return ResponseModel<T>(
-      message: map['message'] != null ? map['message'] as String : null,
-      error: map['non_field_errors'] != null
-          ? map['non_field_errors'] as String
-          : null,
       dataModel: DataModel<T>.fromJson(map[responseData[T]] ?? ''),
+      status: map['status'] != null ? map['status'] as String : null,
+      message: map['message'] != null ? map['message'] as String : null,
+      error: map['detail'] != null ? map['detail'] as String : null,
     );
   }
 }
 
 final dataFactoryModels = <Type, DataFactory>{
-  UserModel: (Map<String, dynamic> json) => UserModel.fromJson(json),
+  AuthenticationModel: (Map<String, dynamic> json) =>
+      AuthenticationModel.fromJson(json),
 };
 
 final responseData = <Type, String>{
-  UserModel: 'Account',
+  AuthenticationModel: 'auth',
 };
 
 class DataModel<T extends BaseApiModel> {

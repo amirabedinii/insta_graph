@@ -3,11 +3,12 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:insta_graph/cubits/authentication/authentication_state.dart';
 import 'package:insta_graph/repository/api/authentication_repository.dart';
+import 'package:insta_graph/services/auth_services.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
   AuthenticationCubit()
       : super(
-           AuthenticationState(
+          const AuthenticationState(
             signUpWithFacebook: false,
             signUpSubmitting: false,
             logInSubmitting: false,
@@ -17,6 +18,8 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
   final AuthenticationRepository authenticationRepository =
       AuthenticationRepository();
+
+  final AuthServices authServices = AuthServices();
 
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
@@ -43,12 +46,14 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       );
 
       //getting data from response
-      final userModel = signUpResponse.dataModel?.result.first;
+      final authModel = signUpResponse.dataModel?.result.first;
 
       //emiting final data
+      authServices.updateToken(authModel!.token!);
+      authServices.updateRefreshToken(authModel.refreshToken!);
+
       emit(
         state.copyWith(
-          userModel: userModel,
           signUpSubmitting: false,
         ),
       );
@@ -78,12 +83,17 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
     try {
       // getting response from server
-      final logInResponse = await authenticationRepository.logIn(
+      final loginResponce = await authenticationRepository.logIn(
         username: usernameController.text,
         password: passwordController.text,
       );
 
+      final authModel = loginResponce.dataModel?.result.first;
+
       //emiting final data
+       authServices.updateToken(authModel!.token!);
+      authServices.updateRefreshToken(authModel.refreshToken!);
+
       emit(
         state.copyWith(
           logInSubmitting: false,
