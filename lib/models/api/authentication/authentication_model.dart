@@ -12,15 +12,15 @@ class AuthenticationModel extends BaseApiModel{
   @override
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      'username': token,
-      'password': refreshToken,
+      'token': token,
+      'refresh': refreshToken,
     };
   }
 
   factory AuthenticationModel.fromJson(Map<String, dynamic> map) {
     return AuthenticationModel(
       token: map['token'] as String,
-      refreshToken: map['refreshToken'] as String,
+      refreshToken: map['refresh'] as String,
     );
   }
 

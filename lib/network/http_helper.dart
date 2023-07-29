@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:insta_graph/network/remote_data_provider.dart';
 
-
 class HttpHelper {
   final Dio _dio = RemoteDataProvider().dio;
 
@@ -47,7 +46,7 @@ class HttpHelper {
     try {
       return _responseData(
         await _dio.get(
-          '/$path',
+          path,
           queryParameters: queryParameters,
         ),
       );
@@ -64,7 +63,7 @@ class HttpHelper {
   }) async {
     try {
       return _responseData(await _dio.post(
-        '/$path',
+        path,
         data: data,
       ));
     } on DioException catch (e) {
@@ -81,7 +80,7 @@ class HttpHelper {
     try {
       return _responseData(
         await _dio.put(
-          '/$path',
+          path,
           data: data,
         ),
       );
@@ -100,7 +99,7 @@ class HttpHelper {
     try {
       return _responseData(
         await _dio.delete(
-          '/$path',
+          path,
           data: data,
         ),
       );

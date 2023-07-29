@@ -44,12 +44,15 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         emailOrPhone: emailOrPhoneController.text,
         password: passwordController.text,
       );
-
       //getting data from response
       final authModel = signUpResponse.dataModel?.result.first;
 
+      if (authModel == null) {
+        throw Exception('its fockin empty');
+      }
+
       //emiting final data
-      authServices.updateToken(authModel!.token!);
+      authServices.updateToken(authModel.token!);
       authServices.updateRefreshToken(authModel.refreshToken!);
 
       emit(
@@ -91,7 +94,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       final authModel = loginResponce.dataModel?.result.first;
 
       //emiting final data
-       authServices.updateToken(authModel!.token!);
+      authServices.updateToken(authModel!.token!);
       authServices.updateRefreshToken(authModel.refreshToken!);
 
       emit(

@@ -66,6 +66,7 @@ class _LogInScreenState extends State<LogInScreen> {
                           height: 40.0.h,
                           hint: 'Phone number, email or username',
                           fillColor: ThemeData().colors(context).textFieldColor,
+                          controller: authenticationCubit.usernameController,
                         ),
                         SizedBox(
                           height: 12.0.h,
@@ -74,7 +75,9 @@ class _LogInScreenState extends State<LogInScreen> {
                           width: 400.0.w,
                           height: 40.0.h,
                           hint: 'Password',
+                          isPassword: true,
                           fillColor: ThemeData().colors(context).textFieldColor,
+                          controller: authenticationCubit.passwordController,
                         ),
                         SizedBox(
                           height: 12.0.h,
@@ -84,7 +87,9 @@ class _LogInScreenState extends State<LogInScreen> {
                           height: 40.0.h,
                           text: 'Log In',
                           isNotEmpty: false,
-                          onPress: () {},
+                          onPress: () async {
+                            await authenticationCubit.logIn();
+                          },
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -130,9 +135,9 @@ class _LogInScreenState extends State<LogInScreen> {
                       ],
                     ),
                   ),
-                  // SizedBox(
-                  //   height: 170.0.h,
-                  // ),
+                  SizedBox(
+                    height: 170.0.h,
+                  ),
                   Container(
                     color: ThemeData().colors(context).materialColor,
                     width: 300.0.w,

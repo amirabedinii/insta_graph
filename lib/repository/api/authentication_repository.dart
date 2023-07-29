@@ -11,13 +11,16 @@ class AuthenticationRepository {
     required String username,
     required String password,
   }) {
-    return _httpHelper.httpPost('127.0.0.1:8000/accounts/login', data: {
+
+    return _httpHelper
+        .httpPost('http://49.13.60.63:8000/accounts/login', data: {
       'username': username,
       'password': password,
-    }).then(
-      (value) => ResponseModel<AuthenticationModel>.fromJson(
-          jsonDecode(jsonEncode(value.data))),
-    );
+    }).then((value) {
+
+      return ResponseModel<AuthenticationModel>.fromJson(
+          jsonDecode(jsonEncode(value.data)));
+    });
   }
 
   Future<ResponseModel<AuthenticationModel>> signUp({
@@ -27,15 +30,20 @@ class AuthenticationRepository {
     required String emailOrPhone,
     required String password,
   }) {
-    return _httpHelper.httpPost('127.0.0.1:8000/accounts/signup', data: {
-      'first_name': firstName,
-      'last_name': lastName,
-      'username': username,
-      'email': emailOrPhone,
-      'password': password,
-    }).then(
-      (value) => ResponseModel<AuthenticationModel>.fromJson(
-          jsonDecode(jsonEncode(value.data))),
+    return _httpHelper.httpPost(
+      'http://49.13.60.63:8000/accounts/signup',
+      data: {
+        'first_name': firstName,
+        'last_name': lastName,
+        'username': username,
+        'email': emailOrPhone,
+        'password': password,
+      },
+    ).then(
+      (value) {
+        return ResponseModel<AuthenticationModel>.fromJson(
+            jsonDecode(jsonEncode(value.data)));
+      },
     );
   }
 }
