@@ -11,16 +11,17 @@ class AuthenticationRepository {
     required String username,
     required String password,
   }) {
-
     return _httpHelper
         .httpPost('http://49.13.60.63:8000/accounts/login', data: {
       'username': username,
       'password': password,
-    }).then((value) {
-
-      return ResponseModel<AuthenticationModel>.fromJson(
-          jsonDecode(jsonEncode(value.data)));
-    });
+    }).then(
+      (value) => ResponseModel<AuthenticationModel>.fromJson(
+        jsonDecode(
+          jsonEncode(value.data),
+        ),
+      ),
+    );
   }
 
   Future<ResponseModel<AuthenticationModel>> signUp({

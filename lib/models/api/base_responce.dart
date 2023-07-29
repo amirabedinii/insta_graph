@@ -17,13 +17,13 @@ T makeModel<T extends BaseApiModel>(Map<String, dynamic> json) {
 }
 
 class ResponseModel<T extends BaseApiModel> {
-  final DataModel<T>? dataModel;
+  final T? dataModel;
   final String? status;
   final String? message;
   final String? error;
 
   ResponseModel({
-        this.dataModel,
+    this.dataModel,
     this.status,
     this.message,
     this.error,
@@ -31,7 +31,7 @@ class ResponseModel<T extends BaseApiModel> {
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-       if (dataModel != null) responseData[T]!: dataModel!.toJson(),
+      if (dataModel != null) responseData[T]!: dataModel!.toJson(),
       if (status != null) 'status': status,
       if (message != null) 'message': message,
       if (error != null) 'detail': error,
@@ -40,10 +40,10 @@ class ResponseModel<T extends BaseApiModel> {
 
   factory ResponseModel.fromJson(Map<String, dynamic> map) {
     return ResponseModel<T>(
-      dataModel: DataModel<T>.fromJson(map[responseData[T]] ?? ''),
-      status: map['status'] != null ? map['status'] as String : null,
-      message: map['message'] != null ? map['message'] as String : null,
-      error: map['detail'] != null ? map['detail'] as String : null,
+      dataModel: makeModel(map[responseData[T]] ?? ''),
+      status: map['status'],
+      message: map['message'],
+      error: map['detail'],
     );
   }
 }
@@ -54,26 +54,5 @@ final dataFactoryModels = <Type, DataFactory>{
 };
 
 final responseData = <Type, String>{
-  AuthenticationModel: 'auth',
+  AuthenticationModel: 'token',
 };
-
-class DataModel<T extends BaseApiModel> {
-  final List<T> result;
-  DataModel({
-    required this.result,
-  });
-
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'result': result.map((e) => e.toJson()).toList(),
-    };
-  }
-
-  factory DataModel.fromJson(Map<String, dynamic> json) {
-    return DataModel(
-      result: (json['result'] as List<dynamic>)
-          .map((item) => makeModel<T>(item))
-          .toList(),
-    );
-  }
-}

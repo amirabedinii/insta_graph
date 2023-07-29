@@ -1,7 +1,6 @@
-
 import '../base_api_model.dart';
 
-class AuthenticationModel extends BaseApiModel{
+class AuthenticationModel extends BaseApiModel {
   final String? token;
   final String? refreshToken;
   const AuthenticationModel({
@@ -19,7 +18,7 @@ class AuthenticationModel extends BaseApiModel{
 
   factory AuthenticationModel.fromJson(Map<String, dynamic> map) {
     return AuthenticationModel(
-      token: map['token'] as String,
+      token: map['access_token'] as String,
       refreshToken: map['refresh'] as String,
     );
   }
