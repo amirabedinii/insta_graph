@@ -11,23 +11,26 @@ class AuthServices {
 
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 
-  String? token;
-  String? refreshToken;
+  String get token => _token ?? '';
+  String get refreshToken => _refreshToken ?? '';
+
+  String? _token;
+  String? _refreshToken;
 
   Future updateToken(String token) async {
-    this.token = token;
+    _token = token;
     (await prefs).setString('token', token);
   }
 
   Future updateRefreshToken(String refreshToken) async {
-    this.refreshToken = refreshToken;
+    _refreshToken = refreshToken;
     (await prefs).setString('refresh_token', refreshToken);
   }
 
   Future init() async {
     final p = await prefs;
-    token = p.getString('token') ?? '';
-    refreshToken = p.getString('refresh_token') ?? '';
+    _token = p.getString('token') ?? '';
+    _refreshToken = p.getString('refresh_token') ?? '';
   }
 
   Future logOut() async {
