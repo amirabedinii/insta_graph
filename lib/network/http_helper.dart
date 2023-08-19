@@ -1,10 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:insta_graph/network/exceptions.dart';
 import 'package:insta_graph/network/remote_data_provider.dart';
 
 class HttpHelper {
   final Dio _dio = RemoteDataProvider().dio;
+  final String baseUrl = "http://37.32.6.196:8000/";
 
   Future<dynamic> _responseData(Response response) async {
     try {
@@ -15,28 +18,81 @@ class HttpHelper {
           return response;
         case HttpStatus.noContent:
           break;
+       case HttpStatus.noContent:
+          break;
+        // 400
         case HttpStatus.badRequest:
-          //TODO: exeption
-          break;
+          throw BadRequestException(
+            response.requestOptions.path,
+            jsonDecode(jsonEncode(response.data)),
+            response.data['error'],
+            response.data['message'],
+          );
+        // 401
         case HttpStatus.unauthorized:
-          //TODO: exeption
-          break;
+          throw UnauthorizedException(
+            response.requestOptions.path,
+            response.data['error'] ?? 'authorization_forbidden',
+            response.data['message'],
+          );
+        // 403
         case HttpStatus.forbidden:
-          //TODO: exeption
-          break;
+          throw ForbiddenException(
+            response.requestOptions.path,
+            response.data['error'] ?? 'forbidden_exception',
+            response.data['message'],
+          );
+        // 404
         case HttpStatus.notFound:
-          //TODO: exeption
-          break;
+          throw NotFoundException(
+            response.requestOptions.path,
+            response.data['error'] ?? 'This Uri Not Founded',
+            response.data['message'],
+          );
+        //
+        case HttpStatus.unprocessableEntity:
+          throw BadRequestException(
+            response.requestOptions.path,
+            jsonDecode(jsonEncode(response.data)),
+            response.data['error'],
+            response.data['message'],
+          );
+        // 429
         case HttpStatus.tooManyRequests:
-          //TODO: exeption
-          break;
+          throw TooManyRequestException(
+            response.requestOptions.path,
+            'Too Many Request',
+            response.data['message'],
+          );
+        // 500
+        case HttpStatus.internalServerError:
+          throw ServerException(
+            response.requestOptions.path,
+            'server_exception',
+            response.data['message'],
+          );
+        // Others
         default:
-          //TODO: exeption
-          break;
+          throw NotHandleException(
+            response.requestOptions.path,
+            'This Status Code Not Handled',
+            response.data['message'],
+          );
       }
-    } catch (_) {
-      //TODO: handling exeptions
+    } on JsonUnsupportedObjectError {
+      throw ServerException(
+        response.requestOptions.path,
+        'Server Unsupported Json Object',
+        response.data['message'],
+      );
+    } on FormatException {
+      throw ServerException(
+        response.requestOptions.path,
+        'Server Unsupported Json Format',
+        response.data['message'],
+      );
     }
+      
   }
 
   Future<dynamic> httpGet(
@@ -46,7 +102,7 @@ class HttpHelper {
     try {
       return _responseData(
         await _dio.get(
-          path,
+          baseUrl + path,
           queryParameters: queryParameters,
         ),
       );
@@ -63,7 +119,7 @@ class HttpHelper {
   }) async {
     try {
       return _responseData(await _dio.post(
-        path,
+       baseUrl + path,
         data: data,
       ));
     } on DioException catch (e) {
@@ -80,7 +136,7 @@ class HttpHelper {
     try {
       return _responseData(
         await _dio.put(
-          path,
+          baseUrl + path,
           data: data,
         ),
       );
@@ -99,7 +155,7 @@ class HttpHelper {
     try {
       return _responseData(
         await _dio.delete(
-          path,
+        baseUrl + path,
           data: data,
         ),
       );
@@ -117,7 +173,7 @@ class HttpHelper {
   }) async {
     try {
       return _responseData(await _dio.post(
-        '/$path',
+        baseUrl + path,
         data: data,
         options: Options(),
       ));

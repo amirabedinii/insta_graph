@@ -1,7 +1,8 @@
-import 'dart:io';
+import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:insta_graph/cubits/authentication/authentication_state.dart';
+import 'package:insta_graph/network/exceptions.dart';
 import 'package:insta_graph/repository/api/authentication_repository.dart';
 import 'package:insta_graph/services/auth_services.dart';
 
@@ -27,7 +28,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   final emailOrPhoneController = TextEditingController();
   final passwordController = TextEditingController();
 
-  Future signUp() async {
+  Future<bool> signUp() async {
     // starting signUp
     emit(
       state.copyWith(
@@ -36,7 +37,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     );
 
     try {
-      // getting response from server
+      log("sign up from cubit");      // getting response from server
       final signUpResponse = await authenticationRepository.signUp(
         firstName: firstNameController.text,
         lastName: lastNameController.text,
@@ -45,8 +46,8 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         password: passwordController.text,
       );
       //getting data from response
-      final authModel = signUpResponse.dataModel;
-
+      final  authModel = signUpResponse;
+      log(authModel.toString());
       if (authModel == null) {
         throw Exception('its fockin empty');
       }
@@ -60,23 +61,28 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
           signUpSubmitting: false,
         ),
       );
-    } on HttpException catch (e) {
+      return true ;
+    } on CustomHttpException catch (e) {
       emit(
         state.copyWith(
           message: e.message,
           signUpSubmitting: false,
         ),
       );
+      log(e.message??"");
+      return false ;
     } catch (e) {
       emit(
         state.copyWith(
           signUpSubmitting: false,
         ),
       );
+      return false ;
     }
+  
   }
 
-  Future logIn() async {
+  Future<bool> logIn() async {
     // starting logIn
     emit(
       state.copyWith(
@@ -91,7 +97,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         password: passwordController.text,
       );
 
-      final authModel = loginResponce.dataModel;
+      final authModel = loginResponce;
 
       if (authModel == null) {
         throw Exception('authmodel is empty');
@@ -106,13 +112,15 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
           logInSubmitting: false,
         ),
       );
-    } on HttpException catch (e) {
+      return true ;
+    } on CustomHttpException catch (e) {
       emit(
         state.copyWith(
           message: e.message,
           logInSubmitting: false,
         ),
       );
+  return false ;
     } catch (e) {
       emit(
         state.copyWith(
@@ -120,5 +128,6 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         ),
       );
     }
+    return false ;
   }
 }

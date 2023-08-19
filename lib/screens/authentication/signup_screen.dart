@@ -121,7 +121,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       text: 'sign up',
                       isNotEmpty: false,
                       onPress: () async {
-                        await authenticationCubit.signUp();
+                        bool signup=  await authenticationCubit.signUp();
+                        if(signup){
+                         showDialog(context: context, builder: (context)=>AlertDialog(
+                           title: Text('Sign up'),
+                           content: Text('Sign up is successful'),
+                           actions: [
+                             TextButton(onPressed: (){
+                               Navigator.pop(context);
+                             }, child: Text('OK'))
+                           ],
+                         ));
+                        }else {
+                          showDialog(context: context, builder: (context)=>AlertDialog(
+                            title: Text('Sign up'),
+                            content: Text('Sign up is failed'),
+                            actions: [
+                              TextButton(onPressed: (){
+                                Navigator.pop(context);
+                              }, child: Text('OK'))
+                            ],
+                          ));
+                        }
                       },
                     ),
                     SizedBox(
@@ -155,6 +176,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: distance12,
                     ),
                     RichText(
+                      textAlign: TextAlign.center,
                       text: TextSpan(
                         text: "By signing up, you agree to our ",
                         style: TextStyle(
