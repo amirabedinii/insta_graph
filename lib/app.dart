@@ -26,8 +26,14 @@ class MyApp extends StatelessWidget {
                     ThemeData().colors(context).backgroundColor),
             darkTheme: ThemeData.dark().copyWith(
                 scaffoldBackgroundColor:
-                    ThemeData().colors(context).backgroundColor),
-            home: const LogInScreen(),
+                    ThemeData().colors(context).backgroundColor,
+                appBarTheme: AppBarTheme(
+                  color: ThemeData().colors(context).backgroundColor,
+                ),
+                bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                  backgroundColor: ThemeData().colors(context).backgroundColor,
+                )),
+            home: const MainScreen(),
             routes: {
               '/login': (context) => const LogInScreen(),
               '/signup': (context) => const SignUpScreen(),

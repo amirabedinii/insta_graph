@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:insta_graph/screens/feed/feed_page_app_bar.dart';
+import 'package:insta_graph/screens/feed/feed_page_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -10,27 +12,35 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> screen = [
-    Container(),
-    Container(),
-    Container(),
-    Container(),
-    Container(),
-  ];
-
-  final List<AppBar?> appBar = [
-    null,
-    null,
-    null,
-    null,
-    null,
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final List<Widget> screen = [
+      const FeedPageScreen(),
+      Container(),
+      Container(),
+      Container(),
+      Container(),
+    ];
+
+    final List<SliverAppBar?> appBar = [
+      feedPageAppBar(context),
+      null,
+      null,
+      null,
+      null,
+    ];
+
     return Scaffold(
-      appBar: appBar[_currentIndex],
-      body: screen[_currentIndex],
+      body: appBar[_currentIndex] != null
+          ? NestedScrollView(
+              headerSliverBuilder: (context, innerBoxIsScrolled) {
+                return [
+                  appBar[_currentIndex]!,
+                ];
+              },
+              body: screen[_currentIndex],
+            )
+          : screen[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: onTabTapped,
