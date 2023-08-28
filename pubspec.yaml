@@ -43,6 +43,7 @@ dependencies:
   dio: ^5.2.1+1
   injectable: ^2.1.2
   get_it: ^7.6.0
+  shared_preferences: ^2.2.0
 
 
 dev_dependencies:
@@ -72,6 +73,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/instagram_logo.svg
+    - assets/images/instagram_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -6,6 +6,7 @@ import 'package:insta_graph/helpers/color_extention.dart';
 import 'package:insta_graph/helpers/screen_size_helper.dart';
 import 'package:insta_graph/screens/authentication/login_screen.dart';
 import 'package:insta_graph/screens/authentication/signup_screen.dart';
+import 'package:insta_graph/screens/splash/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -26,9 +27,10 @@ class MyApp extends StatelessWidget {
             darkTheme: ThemeData.dark().copyWith(
                 scaffoldBackgroundColor:
                     ThemeData().colors(context).backgroundColor),
-            initialRoute: 'login',
+            initialRoute: '',
             routes: {
-              'login': (context) => const LogInScreen(),
+              '': (context) => const SplashScreen(),
+              '/login': (context) => const LogInScreen(),
               '/signup': (context) => const SignUpScreen(),
             },
           );

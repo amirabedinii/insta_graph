@@ -6,7 +6,7 @@ class AuthenticationButton extends StatelessWidget {
   final double width;
   final double height;
   final bool isNotEmpty;
-  final Function onPress;
+  final VoidCallback onPress;
 
   const AuthenticationButton({
     super.key,
@@ -28,7 +28,7 @@ class AuthenticationButton extends StatelessWidget {
               ? ThemeData().colors(context).nonEmptyButtonColor
               : ThemeData().colors(context).emptyButtonColor,
         ),
-        onPressed: () => onPress,
+        onPressed: onPress,
         child: Text(text),
       ),
     );
