@@ -1,41 +1,50 @@
 import 'dart:convert';
-import 'package:insta_graph/models/api/authentication/login_model.dart';
-import 'package:insta_graph/models/api/authentication/user_model.dart';
+import 'dart:developer';
+import 'package:insta_graph/models/api/authentication/authentication_model.dart';
 import 'package:insta_graph/network/http_helper.dart';
-
-import '../../models/api/base_responce.dart';
 
 class AuthenticationRepository {
   final HttpHelper _httpHelper = HttpHelper();
 
-  Future<ResponseModel<LoginModel>> logIn({
+  Future<AuthenticationModel> logIn({
     required String username,
     required String password,
   }) {
-    return _httpHelper.httpPost('', data: {
+    return _httpHelper
+        .httpPost('accounts/login', data: {
       'username': username,
       'password': password,
     }).then(
-      (value) => ResponseModel<LoginModel>.fromJson(
-          jsonDecode(jsonEncode(value.data))),
+      (value) => AuthenticationModel.fromJson(
+        jsonDecode(
+          jsonEncode(value.data),
+        ),
+      ),
     );
   }
 
-  Future<ResponseModel<UserModel>> signUp(
-      {required String firstName,
-      required String lastName,
-      required String username,
-      required String emailOrPhone,
-      required String password}) {
-    return _httpHelper.httpPost('', data: {
-      'first_name': firstName,
-      'last_name': lastName,
-      'username': username,
-      'email': emailOrPhone,
-      'password': password,
-    }).then(
-      (value) =>
-          ResponseModel<UserModel>.fromJson(jsonDecode(jsonEncode(value.data))),
+  Future<AuthenticationModel> signUp({
+    required String firstName,
+    required String lastName,
+    required String username,
+    required String emailOrPhone,
+    required String password,
+  }) {
+    return _httpHelper.httpPost(
+      'accounts/signup',
+      data: {
+        'first_name': firstName,
+        'last_name': lastName,
+        'username': username,
+        'email': emailOrPhone,
+        'password': password,
+      },
+    ).then(
+      (value) {
+        log(value.toString());
+        return AuthenticationModel.fromJson(
+            jsonDecode(jsonEncode(value.data)));
+      },
     );
   }
 }

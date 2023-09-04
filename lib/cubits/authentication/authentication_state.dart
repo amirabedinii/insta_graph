@@ -1,18 +1,13 @@
-import 'package:insta_graph/models/api/authentication/user_model.dart';
 import 'package:insta_graph/models/state/base_state.dart';
 
 class AuthenticationState extends BaseState {
-  final UserModel? userModel;
-  final String? token;
   final bool signUpWithFacebook;
   final bool signUpSubmitting;
   final bool logInSubmitting;
   final bool logOutSubmitting;
 
-  AuthenticationState({
+  const AuthenticationState({
     String? message,
-    this.userModel,
-    this.token,
     required this.signUpWithFacebook,
     required this.signUpSubmitting,
     required this.logInSubmitting,
@@ -23,8 +18,6 @@ class AuthenticationState extends BaseState {
 
   AuthenticationState copyWith({
     String? message,
-    UserModel? userModel,
-    String? token,
     bool? signUpWithFacebook,
     bool? signUpSubmitting,
     bool? logInSubmitting,
@@ -33,8 +26,6 @@ class AuthenticationState extends BaseState {
   }) {
     return AuthenticationState(
       message: message,
-      userModel: userModel ?? this.userModel,
-      token: token ?? this.token,
       signUpWithFacebook: signUpWithFacebook ?? this.signUpWithFacebook,
       signUpSubmitting: signUpSubmitting ?? this.signUpSubmitting,
       logInSubmitting: logInSubmitting ?? this.logInSubmitting,
@@ -44,8 +35,6 @@ class AuthenticationState extends BaseState {
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      'userModel': userModel?.toJson(),
-      'token': token,
       'signUpSubmitting': signUpSubmitting,
       'logInSubmitting': logInSubmitting,
       'logOutSubmitting': logOutSubmitting,
@@ -54,10 +43,6 @@ class AuthenticationState extends BaseState {
 
   factory AuthenticationState.fromJson(Map<String, dynamic> map) {
     return AuthenticationState(
-      userModel: map['userModel'] != null
-          ? UserModel.fromJson(map['userModel'] as Map<String, dynamic>)
-          : null,
-      token: map['token'] as String,
       signUpWithFacebook: map['signUpWithFacebook'] as bool,
       signUpSubmitting: map['signUpSubmitting'] as bool,
       logInSubmitting: map['logInSubmitting'] as bool,
@@ -67,8 +52,6 @@ class AuthenticationState extends BaseState {
 
   @override
   List<Object?> get props => [
-        userModel,
-        token,
         signUpWithFacebook,
         signUpSubmitting,
         logInSubmitting,
