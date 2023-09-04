@@ -1,6 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:insta_graph/cubits/authentication/authentication_cubit.dart';
+import 'package:insta_graph/cubits/authentication/authentication_state.dart';
 import 'package:insta_graph/helpers/color_extention.dart';
 import 'package:insta_graph/helpers/size_extentions.dart';
 import 'package:insta_graph/widgets/buttons/authentication_button.dart';
@@ -16,23 +19,24 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  late final AuthenticationCubit authenticationCubit;
+  @override
+  void initState() {
+    authenticationCubit = AuthenticationCubit();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Center(
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                left: distance20,
-                right: distance20,
-                top: distance20 * 2,
-                bottom: distance20 * 2,
-              ),
+    return BlocProvider(
+      create: (_) => authenticationCubit,
+      child: BlocConsumer<AuthenticationCubit, AuthenticationState>(
+        bloc: authenticationCubit,
+        builder: (context, state) {
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
+            body: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
                     width: 170.0.w,
@@ -52,6 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     style: TextStyle(
                       color: ThemeData().colors(context).materialColor,
                       fontSize: 15.0,
+                      
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -152,40 +157,75 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         TextSpan(
                           text: "Terms",
                           style: TextStyle(
-                            color: Colors.blue,
+                            color: ThemeData().colors(context).materialColor,
                             fontWeight: FontWeight.bold,
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              //TODO : Terms
+                              print('Terms');
+                            },
+                        ),
+                        TextSpan(
+                          text: ", ",
+                          style: TextStyle(
+                            color: ThemeData().colors(context).materialColor,
+                          ),
+                        ),
+                        TextSpan(
+                          text: "Data Policy",
+                          style: TextStyle(
+                            color: ThemeData().colors(context).materialColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              print('Data Policy');
+                            },
+                        ),
+                        TextSpan(
+                          text: " and ",
+                          style: TextStyle(
+                            color: ThemeData().colors(context).materialColor,
+                          ),
+                        ),
+                        TextSpan(
+                          text: "Cookies Policy",
+                          style: TextStyle(
+                            color: ThemeData().colors(context).materialColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              print('Cookies Policy');
                             },
                         ),
                       ],
                     ),
                   ),
+                  // SizedBox(
+                  //   height: 130.0.w,
+                  // ),
+                  Container(
+                    color: ThemeData().colors(context).materialColor,
+                    width: 300.0.w,
+                    height: 0.5.w,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Already have an account?'),
+                      TextButton(
+                        onPressed: () {},
+                        child: const Text('Log in.'),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
-            const Spacer(),
-            const Spacer(),
-            Container(
-              color: ThemeData().colors(context).materialColor,
-              width: 300.0.w,
-              height: 0.5.h,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('Already have an account?'),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text('Log in.'),
-                ),
-              ],
-            ),
-            const Spacer(),
-          ],
-        ),
+          );
+        },
+        listener: (context, state) {},
       ),
     );
   }
